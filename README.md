@@ -8,13 +8,16 @@ A pair-programmed, event-driven program completed in two one week sprints. The f
 ### Main Features
 * Persistence
 * Event-Driven
+* Subtype Polymorphism
 * Pair-Programmed
-* Inheritance
 * Javadoc
-* JavaFX
+* Model View Controller Architecture
 
-### Accounts
-Some accounts available for use:
+### Design Patterns
+* Observer
+* Composite
+
+### Usable Accounts
 * Administrator
   * *Username:* Merlin 
   * *Password:* 7777777

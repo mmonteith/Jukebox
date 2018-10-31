@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import controller_view.SongQueue;
+import view.SongQueue;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -27,14 +27,12 @@ public class Jukebox implements Serializable {
 	private List<Student> users;
 	private Queue<Song> playlist;
 	private Student currentUser;
-	private int songtime;
 	private static boolean playingASong;
 
 	public Jukebox() {
 		this.songSelection = new ArrayList<Song>();
 		this.users = new ArrayList<Student>();
 		this.playlist = new LinkedList<Song>();
-		this.songtime = 0;
 		initializeUserList();
 		initializeSongSelection();
 	}
@@ -67,8 +65,7 @@ public class Jukebox implements Serializable {
 	/**
 	 * Retrieves a Song from the available song list.
 	 * 
-	 * @param int
-	 *            songNumber, index of song
+	 * @param int songNumber, index of song
 	 * @return song at songNumber
 	 */
 	public Song getSong(int songNumber) {
@@ -77,20 +74,12 @@ public class Jukebox implements Serializable {
 
 	/**
 	 * Getter for songSelection.
-	 * 
 	 * @return songSelection
 	 */
 	public List<Song> getSongSelections() {
 		return this.songSelection;
 	}
 
-	/**
-	 * Getter for songtime
-	 */
-	public int getSongtime() {
-		return songtime;
-	}
-	
 	/**
 	 * Setter for songSelection.
 	 */
@@ -100,7 +89,6 @@ public class Jukebox implements Serializable {
 
 	/**
 	 * Getter for playlist.
-	 * 
 	 * @return playlist
 	 */
 	public Queue<Song> getPlaylist() {
@@ -116,7 +104,6 @@ public class Jukebox implements Serializable {
 
 	/**
 	 * Getter for currentUser.
-	 * 
 	 * @return currentuser
 	 */
 	public Student getCurrentUser() {
@@ -127,16 +114,15 @@ public class Jukebox implements Serializable {
 	 * Setter for currentUser. (testing only)
 	 */
 	public void setCurrentUser(Student s) {
-		currentUser = s;
+		this.currentUser = s;
 	}
 
 	/**
 	 * Getter for userlist
-	 * 
 	 * @return list of all users
 	 */
 	public List<Student> getAllUsers() {
-		return users;
+		return this.users;
 	}
 
 	/**
@@ -151,18 +137,15 @@ public class Jukebox implements Serializable {
 	 * available users and check if there exists user with matching username and
 	 * password.
 	 * 
-	 * @param username,
-	 *            must match a student in the userList
-	 * @param password,
-	 *            must match a valid student's password
+	 * @param username, must match a student in the userList
+	 * @param password, must match a valid student's password
 	 * @return true, if successful login
 	 * @return false otherwise
 	 */
 	public boolean loginUser(String username, String password) {
-
-		for (int i = 0; i < users.size(); i++) {
-			if (username.equals(users.get(i).getUsername()) && password.equals(users.get(i).getPassword())) {
-				this.currentUser = users.get(i);
+		for (int i = 0; i < this.users.size(); i++) {
+			if (username.equals(this.users.get(i).getUsername()) && password.equals(this.users.get(i).getPassword())) {
+				this.currentUser = this.users.get(i);
 				return true;
 			}
 		}
@@ -170,11 +153,10 @@ public class Jukebox implements Serializable {
 	}
 
 	/**
-	 * Validates that the currentUser can play the given Song and has not
-	 * exceeded their minutes.
+	 * Validates that the currentUser can play the given Song and has not exceeded
+	 * their minutes.
 	 * 
-	 * @param song,
-	 *            song to play
+	 * @param song, song to play
 	 * @return true if the song is able to play
 	 * @return false otherwise
 	 */
@@ -187,46 +169,39 @@ public class Jukebox implements Serializable {
 	}
 
 	/**
-	 * Adds a song to the queue and plays the queue. Also adjusts the current
-	 * user's available minutes.
+	 * Adds a song to the queue and plays the queue. Also adjusts the current user's
+	 * available minutes.
 	 * 
-	 * @param song,
-	 *            song to play
+	 * @param song, song to play
 	 */
 	public void playSong(Song song) {
-		
 		this.currentUser.playSong();
 		this.currentUser.adjustTime(song);
 		this.playlist.add(song);
 		for (Song temp : songSelection) {
 			if (temp.getTitle().equals(song.getTitle())) {
-				this.songtime = temp.getLength();
 				temp.playOnce();
 			}
 		}
 		if (!playingASong) {
-			playPlaylist();
+			this.playPlaylist();
 		}
 	}
 
 	/**
-	 * Plays songs from the queue in FIFO order if a song is not currently
-	 * playing.
+	 * Plays songs from the queue in FIFO order if a song is not currently playing.
 	 */
 	public void playPlaylist() {
-		
 		if (!playingASong) {
-			playFile(playlist.peek().getFileName());
+			playFile(this.playlist.peek().getFileName());
 			playingASong = true;
 		}
-		playlist.poll();
+		this.playlist.poll();
 	}
 
 	/**
 	 * Plays an mp3 file.
-	 * 
-	 * @param path,
-	 *            string path of the song to be played.
+	 * @param path, string path of the song to be played.
 	 */
 	private void playFile(String path) {
 		// Need a File and URI object so the path works on all OSs
@@ -242,9 +217,8 @@ public class Jukebox implements Serializable {
 	}
 
 	/**
-	 * This class handles what happens after an mp3 file finishes playing. It
-	 * will continue to play songs from the playlist until all songs have been
-	 * played.
+	 * This class handles what happens after an mp3 file finishes playing. It will
+	 * continue to play songs from the playlist until all songs have been played.
 	 */
 	private class EndOfSongHandler implements Runnable {
 		@Override

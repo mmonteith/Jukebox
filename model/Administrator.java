@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * An Administrator has the same rights as a Student, but is also able
- * to delete other Students.
+ * to add other Students.
  * 
  * @author Michelle Monteith and Jamie David
  * @class  CSC 335 Spring 18

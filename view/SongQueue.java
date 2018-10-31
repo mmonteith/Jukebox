@@ -1,4 +1,4 @@
-package controller_view;
+package view;
 import model.Song;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,9 +18,6 @@ import java.util.Queue;
  */
 public class SongQueue extends ListView<String> implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private static ObservableList<String> observable;
 	List<String> songList;

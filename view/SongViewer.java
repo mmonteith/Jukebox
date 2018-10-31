@@ -1,4 +1,4 @@
-package controller_view;
+package view;
 
 import model.Jukebox;
 import model.Song;

@@ -10,11 +10,8 @@ import java.time.LocalDate;
  * @author Michelle Monteith and Jamie David
  * @class CSC 335 Spring 18
  */
-public class Student implements Serializable{
+public class Student implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private String username;
 	private String password;
@@ -26,7 +23,7 @@ public class Student implements Serializable{
 	private LocalDate dateToday;
 	private String time;
 	protected Jukebox jukebox;
-	
+
 	/**
 	 * Creates a new Student
 	 * @param un username
@@ -34,28 +31,28 @@ public class Student implements Serializable{
 	 * @param j jukebox
 	 */
 	public Student(String un, String pw, Jukebox j) {
-		username = un;
-		password = pw;
-		songsPlayed = 0;
-		secondsAvailable = 90000;
-		
-		jukebox = j;
-		
-		dateToday = LocalDate.now();
-		currentDay = dateToday.getDayOfYear();
-		currentYear = dateToday.getYear();
-		setTimeString();
+		this.username = un;
+		this.password = pw;
+		this.songsPlayed = 0;
+		this.secondsAvailable = 90000;
+
+		this.jukebox = j;
+
+		this.dateToday = LocalDate.now();
+		this.currentDay = this.dateToday.getDayOfYear();
+		this.currentYear = this.dateToday.getYear();
+		this.setTimeString();
 	}
 
 	/**
-	 * Stores the available time for the Student as a formatted String if form
-	 * of "HH:MM:SS".
+	 * Stores the available time for the Student as a formatted String if form of
+	 * "HH:MM:SS".
 	 */
 	private void setTimeString() {
-		int hour = secondsAvailable / 3600;
-		int min = (secondsAvailable % 3600) / 60;
-		int sec = secondsAvailable % 60;
-		time = String.format("%02d:%02d:%02d", hour, min, sec);
+		int hour = this.secondsAvailable / 3600;
+		int min = (this.secondsAvailable % 3600) / 60;
+		int sec = this.secondsAvailable % 60;
+		this.time = String.format("%02d:%02d:%02d", hour, min, sec);
 	}
 
 	/**
@@ -89,14 +86,14 @@ public class Student implements Serializable{
 	public boolean isAdmin() {
 		return false;
 	}
-	
+
 	/**
 	 * Checks if the Student has not exceeded its limit of 3 songs per day.
 	 * @return true if limit not reached
 	 * @return false otherwise
 	 */
 	public boolean ableToPlay() {
-		adjustDay();
+		this.adjustDay();
 		if (this.songsPlayed < 3) {
 			return true;
 		}
@@ -107,33 +104,33 @@ public class Student implements Serializable{
 	 * Setter for currentDay (testing only)
 	 */
 	public void setCurDay(int day) {
-		currentDay = day;
+		this.currentDay = day;
 	}
-	
+
 	/**
 	 * Setter for currentYear (testing only)
 	 */
 	public void setCurYear(int yr) {
-		currentYear = yr;
+		this.currentYear = yr;
 	}
-	
+
 	/**
 	 * Setter for secondsAvailable (testing only)
 	 */
 	public void setSecs(int s) {
-		secondsAvailable = s;
+		this.secondsAvailable = s;
 	}
-	
+
 	/**
-	 * Adjusts currentDay and currentYear to the day and year today then resets
-	 * this Student's song played count.
+	 * Adjusts currentDay and currentYear to the day and year today then resets this
+	 * Student's song played count.
 	 */
 	private void adjustDay() {
 		this.dateToday = LocalDate.now();
-		if (this.currentDay != dateToday.getDayOfYear() || this.currentYear != dateToday.getYear()) {
+		if (this.currentDay != this.dateToday.getDayOfYear() || this.currentYear != this.dateToday.getYear()) {
 			this.songsPlayed = 0;
-			this.currentDay = dateToday.getDayOfYear();
-			this.currentYear = dateToday.getYear();
+			this.currentDay = this.dateToday.getDayOfYear();
+			this.currentYear = this.dateToday.getYear();
 		}
 	}
 
@@ -150,12 +147,11 @@ public class Student implements Serializable{
 	 */
 	public void adjustTime(Song song) {
 		this.secondsAvailable -= song.getLength();
-		setTimeString();
+		this.setTimeString();
 	}
 
 	/**
-	 * Returns a message displaying the count of songs played and available
-	 * minutes.
+	 * Returns a message displaying the count of songs played and available minutes.
 	 * @return time as the string in the format [SongsPlayed] selected [Time]
 	 */
 	public String timeAsString() {

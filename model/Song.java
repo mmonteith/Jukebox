@@ -29,10 +29,10 @@ public class Song implements Serializable{
 		this.length = length;
 		this.timesPlayed = 0;
 		this.time = "";
-		dateToday = LocalDate.now();
-		currentDay = dateToday.getDayOfYear();
-		currentYear = dateToday.getYear();
-		setTimeString();
+		this.dateToday = LocalDate.now();
+		this.currentDay = this.dateToday.getDayOfYear();
+		this.currentYear = this.dateToday.getYear();
+		this.setTimeString();
 	}
 
 	/**
@@ -57,11 +57,11 @@ public class Song implements Serializable{
 	private void setTimeString() {
 		int min = (length % 3600) / 60;
 		int sec = length % 60;
-		time = String.format("%02d:%02d", min, sec);
+		this.time = String.format("%02d:%02d", min, sec);
 	}
 
 	/**
-	 * getter for timesplayed
+	 * Getter for timesplayed
 	 * @return timesPlayed
 	 */
 	public int getTimesPlayed() {
@@ -96,14 +96,14 @@ public class Song implements Serializable{
 	 * Setter for currentDay (testing only)
 	 */
 	public void setCurDay(int day) {
-		currentDay = day;
+		this.currentDay = day;
 	}
 	
 	/**
 	 * Setter for currentYear (testing only)
 	 */
 	public void setCurYear(int yr) {
-		currentYear = yr;
+		this.currentYear = yr;
 	}
 
 	/**
@@ -119,7 +119,7 @@ public class Song implements Serializable{
 	 * @return false otherwise
 	 */
 	public boolean playable() {
-		adjustDay();
+		this.adjustDay();
 		if (this.timesPlayed < 3) {
 			return true;
 		}
@@ -133,10 +133,10 @@ public class Song implements Serializable{
 	private void adjustDay() {
 		this.dateToday = LocalDate.now();
 		
-		if (this.currentDay != dateToday.getDayOfYear() || this.currentYear != dateToday.getYear()) {
+		if (this.currentDay != this.dateToday.getDayOfYear() || this.currentYear != this.dateToday.getYear()) {
 			this.timesPlayed = 0;
-			this.currentDay = dateToday.getDayOfYear();
-			this.currentYear = dateToday.getYear();
+			this.currentDay = this.dateToday.getDayOfYear();
+			this.currentYear = this.dateToday.getYear();
 		}
 	}
 	

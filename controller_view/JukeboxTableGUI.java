@@ -4,7 +4,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.time.LocalTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -22,7 +21,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -33,6 +31,7 @@ import javafx.util.Pair;
 import model.Jukebox;
 import model.Song;
 import model.Student;
+import view.*;
 
 /**
  * Jukebox GUI that shows the users all songs available and the songs up next in
@@ -53,8 +52,6 @@ public class JukeboxTableGUI extends Application {
 	private String currentUsername = "";
 	private String currentPassword = "";
 	private List<Student> users;
-	private ProgressBar progress;
-	private LocalTime localTime;
 	private static SongViewer songViewer;
 	private static SongQueue songQueue = new SongQueue();
 
@@ -92,11 +89,6 @@ public class JukeboxTableGUI extends Application {
 		// Initialize the queue
 		songViewer = new SongViewer(jukeBox);
 		initializeList();
-		
-		// Add the progress bar
-		progress = new ProgressBar(0);
-		progress.setMaxWidth(840);
-		all.setCenter(progress);
 
 		// Initialize the play button.
 		Button play = new Button("►");
@@ -114,7 +106,6 @@ public class JukeboxTableGUI extends Application {
 				message.setText(currentUser.timeAsString());
 				songQueue.enqueue(song);
 				songViewer.refresh();
-				updateBar();
 			} else {
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setHeaderText("Unable to play song.");
@@ -242,20 +233,6 @@ public class JukeboxTableGUI extends Application {
 		Scene scene = new Scene(all, 850, 650);
 		primaryStage.setScene(scene);
 		primaryStage.show();
-	}
-
-	/**
-	 * Updates the progress of the song playing in the ProgressBar.
-	 */
-	private void updateBar() {
-		
-		// Always start at 0
-		progress.setProgress(0);
-	
-		// Get the song length.
-		localTime = LocalTime.now();
-		int time = 0;
-		LocalTime endTime = localTime.plusSeconds(jukeBox.getSongtime());
 	}
 
 	/**

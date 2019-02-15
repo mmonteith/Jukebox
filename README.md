@@ -1,5 +1,7 @@
+<img src="http://images.clipartpanda.com/jukebox-clipart-9Tpee5KEc.svg" alt="Jukebox" width=100px>
+
 # Jukebox
-## CSC 335: Object Oriented Design
+###### CSC 335: Object Oriented Design
 *Partner:* Jamie David
 
 A pair-programmed, event-driven program completed in two one week sprints. The first iteration allowed for students and an administrator to log in to the Jukebox and select songs to play as long as they had enough plays left on their account. The second interation built a new, table-view GUI with more songs available, allowed the administrator to create accounts, and added persistence. The user now has the option of saving and/or loading the song and queue data.
@@ -12,6 +14,7 @@ A pair-programmed, event-driven program completed in two one week sprints. The f
 * Pair-Programmed
 * Javadoc
 * Model View Controller Architecture
+* 100% Model unit test code coverage
 
 ### Design Patterns
 * Observer
@@ -24,3 +27,6 @@ A pair-programmed, event-driven program completed in two one week sprints. The f
 * Student
   * *Username:* Chris 
   * *Password:* 1
+
+### Usage
+![Jukebox in use](./images/jukeboxuse.gif)

@@ -11,7 +11,7 @@ import java.util.Queue;
 
 import org.junit.Test;
 
-import controller_view.SongQueue;
+import view.SongQueue;
 import javafx.embed.swing.JFXPanel;
 import model.Jukebox;
 import model.Student;
